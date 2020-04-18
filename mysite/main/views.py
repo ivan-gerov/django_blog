@@ -1,14 +1,14 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Tutorial
-from django.contrib.auth.forms import UserCreationForm
+from .models import Post
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 
 def homepage(request):
     return render(request=request,
                 template_name="main/home.html",
-                context={"tutorials": Tutorial.objects.all()})
+                context={"posts": Post.objects.all()})
 
 def register(request):
     if request.method == "POST":
@@ -29,3 +29,15 @@ def register(request):
     return render(request,
                 "main/register.html",
                 context={"form": form})
+
+def logout_request(request):
+    logout(request)
+    messages.info(request, 'Logged out successfully!')
+    return redirect('main:homepage')
+
+def login_request(request):
+    # if request.method
+    form = AuthenticationForm(request.POST)
+    return render(request,
+                'main/login.html',
+                {'form': form})

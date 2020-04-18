@@ -1,16 +1,16 @@
 from django.contrib import admin
-from .models import Tutorial
+from .models import Post
 from tinymce.widgets import TinyMCE
 from django.db import models
 # Register your models here.
 
-class TutorialAdmin(admin.ModelAdmin):
+class PostAdmin(admin.ModelAdmin):
     fieldsets = [
-        ("Title/Data", {"fields": ["tutorial_title", "tutorial_published"]}),
-        ("Content", {"fields": ["tutorial_content"]})
+        ("Title/Data", {"fields": ["post_title", "post_published"]}),
+        ("Content", {"fields": ["post_content"]})
     ]
 
     formfield_overrides = {
         models.TextField: {'widget': TinyMCE()}
     }
-admin.site.register(Tutorial, TutorialAdmin)
+admin.site.register(Post, PostAdmin)
